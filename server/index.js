@@ -1,5 +1,5 @@
 const express = require('express');
-const fetchProductData = require('./fetchProductData');
+const {fetchProductData, productUrlFetcher} = require('./fetchProductData');
 
 const app = express();
 
@@ -10,7 +10,8 @@ app.use(express.json());
 app.get('/search/:sku', async (req, res) => {
   const { sku } = req.params;
   try {
-    const productData = await fetchProductData(sku);
+    const productUrl = await productUrlFetcher(sku);
+    const productData = await fetchProductData(productUrl);
     res.json(productData);
   } catch (error) {
     res.status(500).json({ error: 'Error fetching product data' });
