@@ -28,11 +28,11 @@ async function fetchProductData(url) {
   // Fetch the product page and scrape the book information
   const productPageResponse = await axios.get(url);
   const productPageHtml = productPageResponse.data;
-  const bookUrl = cheerio.load(productPageHtml);
+  const $ = cheerio.load(productPageHtml);
 
-  let title = bookUrl('h1', productPageHtml).text().trim();
-  let author = bookUrl('a.CBD-ProductDetailAuthorLink', productPageHtml.data).first().text().trim();
-  let price = bookUrl('span.CBD-ProductDetailActionPrice', productPageHtml.data).text().trim();
+  let title = $('h1', productPageHtml).text().trim();
+  let author = $('a.CBD-ProductDetailAuthorLink', productPageHtml.data).first().text().trim();
+  let price = $('span.CBD-ProductDetailActionPrice', productPageHtml.data).text().trim();
   price = price.split('$');
   price = price[1];
 

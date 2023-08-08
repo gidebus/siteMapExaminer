@@ -1,9 +1,10 @@
 const express = require('express');
 const {fetchProductData, productUrlFetcher} = require('./fetchProductData');
+const cors = require('cors'); // Import the cors module
 
 const app = express();
-
 // Middleware to parse JSON request bodies
+app.use(cors());
 app.use(express.json());
 
 // Endpoint for searching by SKU
@@ -19,6 +20,6 @@ app.get('/search/:sku', async (req, res) => {
 });
 
 // Server
-app.listen(3000, () => {
-  console.log('Server running on port 3000');
+app.listen(6000, () => {
+  console.log('Server running on port 6000');
 });
